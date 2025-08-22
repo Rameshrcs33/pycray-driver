@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import RiderConfirm from './screen/RiderConfirm';
 import { Alert, PermissionsAndroid } from 'react-native';
+import { onMessage } from '@react-native-firebase/messaging';
 import messaging from '@react-native-firebase/messaging';
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
+    const unsubscribe = onMessage(messaging(), async remoteMessage => {
       Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
     });
 
